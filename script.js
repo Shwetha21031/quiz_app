@@ -1,55 +1,55 @@
 const quizData = [
     {
-        question: 'What do you call a type of shape that has five sides?',
-        a: 'hexagon',
-        b: 'pentagon',
-        c: 'heptagon',
-        d: 'triangle',
-        correct: 'c'
-    },{
-        question: 'Which is the coldest location in the earth?',
-        a: 'antartica',
-        b: 'india',
-        c: 'africa',
-        d: 'greenland',
-        correct: 'a'
-    },{
-        question:'Who discovered electricity?',
-        a: 'grandpa',
-        b: 'Benjamin franklin',
-        c: 'Charles Babbage',
-        d: 'potato seller',
-        answer: 'b'
-    },{
-        question:'Which two parts of the body continue to grow for your entire life?',
-        a: 'nose and ears',
-        b: 'teeth and arms',
-        c: 'none',
-        d: 'fingers and toes',
-        answer: 'a'
-    },{
-        question:'what is 2-2*3 (use order of precedence)',
-        a: '6',
-        b: '0',
-        c: '3',
-        d: '4',
-        answer: 'd'
-    }
+        question: "What is the most used programming language in 2019?",
+        a: "Java",
+        b: "C",
+        c: "Python",
+        d: "JavaScript",
+        correct: "d",
+    },
+    {
+        question: "Who is the President of US?",
+        a: "Florin Pop",
+        b: "Donald Trump",
+        c: "Ivan Saldano",
+        d: "Mihai Andrei",
+        correct: "b",
+    },
+    {
+        question: "What does HTML stand for?",
+        a: "Hypertext Markup Language",
+        b: "Cascading Style Sheet",
+        c: "Jason Object Notation",
+        d: "Helicopters Terminals Motorboats Lamborginis",
+        correct: "a",
+    },
+    {
+        question: "What year was JavaScript launched?",
+        a: "1996",
+        b: "1995",
+        c: "1994",
+        d: "none of the above",
+        correct: "b",
+    },
 ];
 
-const questionEl = document.getElementById('question')
-const a_text = document.getElementById('a_text');
-const b_text = document.getElementById('b_text');
-const c_text = document.getElementById('c_text');
-const d_text = document.getElementById('d_text');
-const submitBtn = document.getElementById('submit');
-
+const quiz = document.getElementById("quiz");
+const answerEls = document.querySelectorAll(".answer");
+const questionEl = document.getElementById("question");
+const a_text = document.getElementById("a_text");
+const b_text = document.getElementById("b_text");
+const c_text = document.getElementById("c_text");
+const d_text = document.getElementById("d_text");
+const submitBtn = document.getElementById("submit");
 
 let currentQuiz = 0;
+let score = 0;
 
 loadQuiz();
 
-function loadQuiz(){
+function loadQuiz() {
+    deselectAnswers();
+
     const currentQuizData = quizData[currentQuiz];
 
     questionEl.innerText = currentQuizData.question;
@@ -57,16 +57,44 @@ function loadQuiz(){
     b_text.innerText = currentQuizData.b;
     c_text.innerText = currentQuizData.c;
     d_text.innerText = currentQuizData.d;
-
 }
 
-submitBtn.addEventListener("click",() => {
-    currentQuiz++;
-if(currentQuiz < quizData.length){
-    loadQuiz();
-}else{
-    alert('you finished!!!!')
+function getSelected() {
+    let answer = undefined;
+
+    answerEls.forEach((answerEl) => {
+        if (answerEl.checked) {
+            answer = answerEl.id;
+        }
+    });
+
+    return answer;
 }
 
-   
+function deselectAnswers() {
+    answerEls.forEach((answerEl) => {
+        answerEl.checked = false;
+    });
+}
+
+submitBtn.addEventListener("click", () => {
+    // check to see the answer
+    const answer = getSelected();
+
+    if (answer) {
+        if (answer === quizData[currentQuiz].correct) {
+            score++;
+        }
+
+        currentQuiz++;
+        if (currentQuiz < quizData.length) {
+            loadQuiz();
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered correctly  ${score}/${quizData.length} questions.</h2>
+                
+                <button onclick="location.reload()">Reload Quiz</button>
+            `;
+        }
+    }
 });

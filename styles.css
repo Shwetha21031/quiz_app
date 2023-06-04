@@ -23,14 +23,14 @@ justify-content: center;
 }
 .quiz-container{
     background-color: white;
-    width: 400px;
+    width: 600px;
     border-radius: 10px;
     box-shadow: 0 0 10px 5px rgba(100,100,100,0.1);
     
 }
 
 .quiz-header{
-    padding: 4rem
+    padding: 3rem
 }
 
 ul{
@@ -56,6 +56,8 @@ button:hover{
 
 }
 h2{
+    padding: 1rem;
+    text-align: center;
     margin: 0;
 }
 
