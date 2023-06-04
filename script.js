@@ -27,6 +27,13 @@ const quizData = [
         c: 'none',
         d: 'fingers and toes',
         answer: 'a'
+    },{
+        question:'what is 2-2*3 (use order of precedence)',
+        a: '6',
+        b: '0',
+        c: '3',
+        d: '4',
+        answer: 'd'
     }
 ];
 
